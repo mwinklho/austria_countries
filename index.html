@@ -1,0 +1,143 @@
+<html>
+  <head>
+    <script>
+      var COUNTRIES_BASE =
+      {
+        "Wien":
+        {
+          city: "Wien",
+          sights:["Riesenrad", "Stephansdom"]
+        },
+        "Salzburg":
+        {
+          city: "Salzburg",
+          sights: ["Festung Hohensalzburg"]
+        },
+        "Niederösterreich":
+        {
+          city: "St. Pölten",
+          sights:["Rathaus"]
+        },
+        "Burgenland":
+        {
+          city: "Eisenstadt",
+          sights:["Schloss Eszterhazy"]
+        },
+        "Oberösterreich":
+        {
+          city: "Linz",
+          sights:["Wallfahrtskirche Pöstlingberg"]
+        },
+        "Tirol":
+        {
+          city: "Innsbruck",
+          sights: ["Goldenes Dachl"]
+        },
+        "Steiermark":
+        {
+          city: "Graz",
+          sights: "Uhrturm"
+        },
+        "Vorarlberg":
+        { 
+          city: "Bregenz",
+          sights: ["Martinsturm"]
+        },
+        "Kärnten":
+        {
+          city: "Klagenfurt",
+          sights:["Lindwurmbrunnen"]
+        }
+      };
+      
+      var COUNTRIES = [];
+      
+      
+      var MODE_COUNTRY = 0;
+      var MODE_DATA = 1;
+      var COUNTRIES_SHOWN = false;
+      
+      var MODE = MODE_COUNTRY;
+      var IDX = -1;
+      function showCountry ()
+      {
+        var aDiv = document.getElementById("presentation");
+        if (COUNTRIES.length === 0)
+        {
+          alert("Geschafft! Noch einmal!");
+          document.location.reload();
+          return;
+        }
+        var nIndex = Math.ceil(Math.random()*COUNTRIES.length);
+        IDX = nIndex-1;
+        aDiv.innerHTML = COUNTRIES[IDX].name;
+        MODE = MODE_COUNTRY;
+      }
+      
+      function showData ()
+      {
+        var aDiv = document.getElementById("presentation");
+        aDiv.innerHTML = COUNTRIES [IDX].city+" - "+COUNTRIES[IDX].sights;
+        MODE = MODE_DATA;
+        COUNTRIES.splice (IDX, 1);
+      }
+      
+      function switchMode ()
+      {
+        if (MODE === MODE_COUNTRY)
+        {
+          showData ();
+          return;
+        }
+        showCountry ();
+      }
+      
+      function showCountries ()
+      {
+        var aBtn = document.getElementById("btn_cheat");
+        var aDiv = document.getElementById("cheat");
+        if (COUNTRIES_SHOWN)
+        {
+          aDiv.innerHTML = "";
+          aBtn.innerHTML = "Bundesländer anzeigen";
+          COUNTRIES_SHOWN = false;
+          return;
+        }
+        var sHTML = "";
+        for (var i = 0; i < Object.keys (COUNTRIES_BASE).length;++i)
+        {
+          var sName = Object.keys (COUNTRIES_BASE)[i];
+          var aCountry = COUNTRIES_BASE[sName];
+          sHTML+="<span>"+(i+1)+": "+sName+": "+aCountry.city + " - " + aCountry.sights+"</span><br/>";
+        }
+        aDiv.innerHTML = sHTML;
+        aBtn.innerHTML = "Bundesländer verbergen";
+        COUNTRIES_SHOWN = true;
+      }
+      
+      function setup ()
+      {
+        for (var i = 0; i < Object.keys(COUNTRIES_BASE).length;++i)
+        {
+          var sName = Object.keys(COUNTRIES_BASE)[i];
+          var aCountry = COUNTRIES_BASE[sName];
+          
+          COUNTRIES[i] = {idx: i+1, name: sName, city: aCountry.city, sights: aCountry.sights};
+        }
+      }
+    </script>
+  </head>
+  <body onload="setup();showCountry ();">
+    <table style="width:100%;height:100%;">
+      <tr>
+        <td style="width:80%;height:100%;" onClick="switchMode();">
+          <div id="presentation" width="80%" height="100%" style="align:center; width:100%;height:100%;font-size: 50px; line-height:100%;display:grid; place-items:center;"></div>
+        </td>
+        <td>
+          <div style="width:100%;"><button id="btn_cheat" onClick="showCountries();" style="position:absolute;top:0;">Bundesländer anzeigen</button></div>
+          <div id="cheat" style="display:grid;"></div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
