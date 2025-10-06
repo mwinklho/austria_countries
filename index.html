@@ -108,7 +108,7 @@
         {
           var sName = Object.keys (COUNTRIES_BASE)[i];
           var aCountry = COUNTRIES_BASE[sName];
-          sHTML+="<span>"+(i+1)+": "+sName+": "+aCountry.city + " - " + aCountry.sights+"</span><br/>";
+          sHTML+="<span>"+(i+1)+": "+sName+": "+aCountry.city + " - " + aCountry.sights.join(", ")+"</span><br/>";
         }
         aDiv.innerHTML = sHTML;
         aBtn.innerHTML = "Bundesländer verbergen";
@@ -142,3 +142,4 @@
   </body>
 
 </html>
+
