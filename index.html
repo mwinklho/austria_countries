@@ -36,7 +36,7 @@
         "Steiermark":
         {
           city: "Graz",
-          sights: "Uhrturm"
+          sights: ["Uhrturm"]
         },
         "Vorarlberg":
         { 
@@ -77,7 +77,7 @@
       function showData ()
       {
         var aDiv = document.getElementById("presentation");
-        aDiv.innerHTML = COUNTRIES [IDX].city+" - "+COUNTRIES[IDX].sights;
+        aDiv.innerHTML = COUNTRIES [IDX].city+" - "+COUNTRIES[IDX].sights.join(", ");
         MODE = MODE_DATA;
         COUNTRIES.splice (IDX, 1);
       }
@@ -140,4 +140,5 @@
       </tr>
     </table>
   </body>
+
 </html>
